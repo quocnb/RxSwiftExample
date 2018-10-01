@@ -56,10 +56,10 @@ class MainViewController: UIViewController {
         guard let image = self.imagePreview.image else {
             return
         }
-        PhotoWriter.save(image).asSingle().subscribe(onSuccess: { [weak self] id in
+        PhotoWriter.save(image).subscribe(onSuccess: { [weak self](id) in
             self?.showMessage("Saved with id: \(id)")
             self?.actionClear()
-        }) { [weak self] error in
+        }) { [weak self](error) in
             self?.showMessage("Error", description: error.localizedDescription)
         }.disposed(by: bag)
     }
@@ -77,9 +77,7 @@ class MainViewController: UIViewController {
     }
 
     func showMessage(_ title: String, description: String? = nil) {
-        let alert = UIAlertController(title: title, message: description, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { [weak self] _ in self?.dismiss(animated: true, completion: nil)}))
-        present(alert, animated: true, completion: nil)
+        self.showAlert(title, description: description).subscribe().disposed(by: bag)
     }
 
     private func updateUI(photos: [UIImage]) {
@@ -87,6 +85,22 @@ class MainViewController: UIViewController {
         buttonClear.isEnabled = photos.count > 0
         itemAdd.isEnabled = photos.count < 6
         title = photos.count > 0 ? "\(photos.count) photos" : "Collage"
+    }
+}
+
+extension UIViewController {
+    func showAlert(_ title: String, description: String?) -> Completable {
+        return Completable.create(subscribe: { [weak self](completable) -> Disposable in
+            let alert = UIAlertController(title: title, message: description, preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "Close", style: .default, handler: { _ in
+                completable(CompletableEvent.completed)
+            }))
+            self?.present(alert, animated: true, completion: nil)
+            return Disposables.create {
+                self?.dismiss(animated: true, completion: nil)
+            }
+        })
+
     }
 }
 
