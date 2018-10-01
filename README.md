@@ -1,4 +1,4 @@
-# RxSwift
+# RxSwift   [![Build Status](https://travis-ci.com/quocnb/RxSwiftExample.svg?branch=master)](https://travis-ci.com/quocnb/RxSwiftExample)
 
 ### Book's information
 [**Rx Swift** Reactive Programming with Swift, 2nd Edition](https://store.raywenderlich.com/products/rxswift)
