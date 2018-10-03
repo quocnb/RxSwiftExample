@@ -51,10 +51,12 @@ class PhotosViewController: UICollectionViewController {
 
     private func errorMessage() {
         showAlert("No access to Camera Roll",
-                  description: "You can grant access to Combinestagram from the Settings app").subscribe(onCompleted: { [weak self] in
-                    self?.dismiss(animated: true, completion: nil)
-                    _ = self?.navigationController?.popViewController(animated: true)
-                  })
+                  description: "You can grant access to Combinestagram from the Settings app"
+            ).asObservable().take(5.0, scheduler: MainScheduler.instance)
+            .subscribe(onCompleted: { [weak self] in
+                self?.dismiss(animated: true, completion: nil)
+                _ = self?.navigationController?.popViewController(animated: true)
+            })
             .disposed(by: bag)
     }
 
