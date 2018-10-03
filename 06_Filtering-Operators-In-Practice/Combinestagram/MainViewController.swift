@@ -38,19 +38,21 @@ class MainViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        images.asObservable()
+        let imagesObservable = images.asObservable().share()
+        imagesObservable
             .throttle(1.0, scheduler: MainScheduler.instance)
             .subscribe(onNext: { [unowned self] photos in
                 self.imagePreview.image = UIImage.collage(images: photos, size: self.imagePreview.frame.size)
             }).disposed(by: bag)
-        images.catchOnNext { [weak self](photos) in
+        imagesObservable.subscribe(onNext: { [weak self](photos) in
             self?.updateUI(photos: photos)
-        }.disposed(by: bag)
+        }).disposed(by: bag)
     }
 
     @IBAction func actionClear() {
         self.images.clear()
         imageCache = []
+        self.updateNavigationIcon()
     }
 
     @IBAction func actionSave() {
@@ -119,9 +121,5 @@ extension BehaviorRelay where Element == [UIImage] {
 
     func clear() {
         self.accept([])
-    }
-
-    func catchOnNext(_ nextEvent: @escaping ([UIImage]) -> Void) -> Disposable {
-        return self.asObservable().subscribe(onNext: nextEvent)
     }
 }
