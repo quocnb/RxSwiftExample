@@ -13,6 +13,7 @@ language: swift
 env:
   - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=04_Observables-and-Subjects-in-Practice/ WORKSPACE=Combinestagram.xcworkspace SCHEME=Combinestagram
   - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=06_Filtering-Operators-In-Practice/ WORKSPACE=Combinestagram.xcworkspace SCHEME=Combinestagram
+  - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=08_Transforming-Operators-in-Practice/ WORKSPACE=GitFeed.xcworkspace SCHEME=GitFeed
 
 script:
   - pod update --project-directory="$FOLDER"
