@@ -23,8 +23,8 @@ https://github.com/ReactiveX/RxSwift
 **Section II: Operators and Best Practices**
 
 - [x] Chapter 5: Filtering Operators
-- [ ] Chapter 6: Filtering Operators in Practice
-- [ ] Chapter 7: Transforming Operators
+- [x] Chapter 6: Filtering Operators in Practice
+- [x] Chapter 7: Transforming Operators
 - [ ] Chapter 8: Transforming Operators in Practice
 - [ ] Chapter 9: Combining Operators
 - [ ] Chapter 10: Combining Operators in Practice

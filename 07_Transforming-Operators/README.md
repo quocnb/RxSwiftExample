@@ -1,21 +1,17 @@
-### Chap 05 : Filtering Operators
+### Chap 07 : Transforming Operators
 
-Using some filtering operators
+#### Transforming elements
 
-- Ignoring operators
-    - ignoreElements() :
-    - elementAt(:)
-    - filter(:)
-- Skipping operators
-    - skip(count)
-    - skipWhile
-    - skipUtil (waiting for a trigger)
-- Taking operators
-    - take(index)
-    - takeWhile
-    - takeUtil(waiting for a trigger)
-- Distinct operators
-    - distinctUntilChanged
-    - distinctUntilChanged(_:) (distinct with condition)
+|Operators|Descriptions|
+|--|--|
+| toArray |group all element to array|
+| map | just like `array.map` |
+| enumerated | just like `array.enumerated` |
 
-    
+#### Transforming inner observables
+- flatMap
+- flatMapLastest
+
+#### Observing events
+- materialize
+- dematerialize

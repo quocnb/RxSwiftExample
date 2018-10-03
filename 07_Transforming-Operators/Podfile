@@ -5,6 +5,8 @@ target 'RxSwiftPlayground' do
   
   # Pods for RxSwiftPlayground
   pod 'RxSwift'
+  pod 'RxSwiftExt'
+
 end
 
 post_install do |installer|
