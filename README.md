@@ -25,7 +25,7 @@ https://github.com/ReactiveX/RxSwift
 - [x] Chapter 5: Filtering Operators
 - [x] Chapter 6: Filtering Operators in Practice
 - [x] Chapter 7: Transforming Operators
-- [ ] Chapter 8: Transforming Operators in Practice
+- [x] Chapter 8: Transforming Operators in Practice
 - [ ] Chapter 9: Combining Operators
 - [ ] Chapter 10: Combining Operators in Practice
 - [ ] Chapter 11: Time Based Operators

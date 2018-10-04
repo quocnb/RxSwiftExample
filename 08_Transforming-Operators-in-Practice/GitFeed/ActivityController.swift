@@ -73,8 +73,21 @@ class ActivityController: UITableViewController {
     }
 
     func fetchEvents(repo: String) {
-        let response = Observable.from([repo])
-            .map({ URL(string: "https://api.github.com/repos/\($0)/events")! })
+        let response = Observable.from(["https://api.github.com/search/repositories?q=language:swift&per_page=5"])
+            .map({ URL(string: $0)! })
+            .flatMap( {URLSession.shared.rx.json(url: $0)}).map({ (json) -> [String] in
+                guard let jsonObject = json as? Parameters else {
+                    return []
+                }
+                guard let allItems = jsonObject["items"] as? [Parameters] else {
+                    return []
+                }
+                return allItems.compactMap({ (item) -> String? in
+                    return item["full_name"] as? String
+                })
+            })
+            .flatMap({Observable<String>.from($0)})
+            .map({ URL(string: "https://api.github.com/repos/\($0)/events?per_page=10")! })
             .map({ [weak self] url -> URLRequest in
                 var request = URLRequest(url: url)
                 if let modifiedHeader = self?.lastModified.value {
@@ -120,7 +133,9 @@ class ActivityController: UITableViewController {
     }
 
     func processEvents(_ newEvents: [Event]) {
-        var updatedEvents = newEvents
+        print(newEvents.count)
+        var updatedEvents = newEvents + events.value
+        print(updatedEvents.count)
         if updatedEvents.count > 50 {
             updatedEvents = Array<Event>(updatedEvents.prefix(upTo: 50))
         }
