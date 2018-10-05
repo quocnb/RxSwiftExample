@@ -27,7 +27,7 @@ https://github.com/ReactiveX/RxSwift
 - [x] Chapter 7: Transforming Operators
 - [x] Chapter 8: Transforming Operators in Practice
 - [x] Chapter 9: Combining Operators
-- [ ] Chapter 10: Combining Operators in Practice
+- [x] Chapter 10: Combining Operators in Practice
 - [ ] Chapter 11: Time Based Operators
 
 **Section III: iOS Apps with RxCocoa**

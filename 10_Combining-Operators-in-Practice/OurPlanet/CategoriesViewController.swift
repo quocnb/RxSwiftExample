@@ -29,19 +29,27 @@ class CategoriesViewController: UIViewController {
 
     @IBOutlet var tableView: UITableView!
     var categories = BehaviorRelay<[EOCategory]>(value: [])
+    let indicator = UIActivityIndicatorView(style: .gray)
+    let downloadView = DownloadView()
 
     override func viewDidLoad() {
         super.viewDidLoad()
         startDownload()
+        indicator.frame = CGRect(x: 0, y: 0, width: 30, height: 30)
+        let right = UIBarButtonItem(customView: indicator)
+        self.navigationItem.rightBarButtonItem = right
+        self.view.addSubview(downloadView)
+        view.layoutIfNeeded()
     }
 
     func startDownload() {
+        self.indicator.startAnimating()
         let eoCategories = EONET.categories
         let downloadedEvents = eoCategories.flatMap { categories in
             return Observable.from(categories.map { category in
                 EONET.events(forLast: 360, category: category)
             })
-            } .merge(maxConcurrent: 2)
+        } .merge(maxConcurrent: 2)
         let updatedCategories = eoCategories.flatMap { categories in
             downloadedEvents.scan(categories) { updated, events in
                 return updated.map { category in
@@ -54,7 +62,23 @@ class CategoriesViewController: UIViewController {
                     return category
                 }
             }
-        }
+        }.do(onCompleted: { [weak self] in
+            DispatchQueue.main.async {
+                self?.indicator.stopAnimating()
+                self?.downloadView.removeFromSuperview()
+            }
+        })
+        eoCategories.flatMap { (categories) in
+            return updatedCategories.scan(0, accumulator: { (count, categories) in
+                return count + 1
+            }).startWith(0).map({($0, categories.count)})
+        }.subscribe(onNext: { [weak self] tuples in
+            DispatchQueue.main.async {
+                let progress = Float(tuples.0) / Float(tuples.1)
+                self?.downloadView.progress.progress = progress
+                self?.downloadView.label.text = String(format: "Downloading %d%%", Int(progress * 100))
+            }
+        }).disposed(by: rx.disposeBag)
         eoCategories.concat(updatedCategories)
             .bind(to: self.categories)
             .disposed(by: rx.disposeBag)
