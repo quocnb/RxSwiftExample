@@ -32,7 +32,7 @@ class EventCell : UITableViewCell {
     details.text = event.description
 
     let formatter = DateFormatter()
-    formatter.dateStyle = .short
+    formatter.dateStyle = .medium
     if let when = event.closeDate {
       date.text = formatter.string(for: when)
     } else {

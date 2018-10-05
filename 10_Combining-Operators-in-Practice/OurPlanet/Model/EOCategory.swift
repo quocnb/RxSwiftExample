@@ -45,4 +45,6 @@ struct EOCategory: Equatable {
   static func ==(lhs: EOCategory, rhs: EOCategory) -> Bool {
     return lhs.id == rhs.id
   }
+
+    
 }

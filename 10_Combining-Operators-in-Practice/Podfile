@@ -4,6 +4,7 @@ platform :ios, '11.0'
 target 'OurPlanet' do
     pod 'RxSwift'
     pod 'RxCocoa'
+    pod 'NSObject+Rx'
 end
 
 # enable tracing resources

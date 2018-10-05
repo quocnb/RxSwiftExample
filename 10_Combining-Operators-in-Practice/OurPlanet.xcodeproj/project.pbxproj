@@ -108,10 +108,10 @@
 		D8D4B8DAB960CC6D73230C61 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				D8D4BAA4F4C10477E0535C81 /* EONET.swift */,
 				D8D4B16B4BA42E13E4F7DBB2 /* EOCategory.swift */,
 				D8D4BE9443CDA2DB4BF2835C /* EOError.swift */,
 				D8D4B6D93EEB59915317AA1D /* EOEvent.swift */,
-				D8D4BAA4F4C10477E0535C81 /* EONET.swift */,
 				D8D4B8B9345BB7B3111B3486 /* EOLocation.swift */,
 			);
 			path = Model;
@@ -194,11 +194,13 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-OurPlanet/Pods-OurPlanet-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 			);
