@@ -6,4 +6,5 @@ target 'Wundercast' do
     pod 'RxSwift'
     pod 'RxCocoa'
     pod 'SwiftyJSON'
+    pod 'NSObject+Rx'
 end

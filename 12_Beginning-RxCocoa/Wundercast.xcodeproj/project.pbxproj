@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		79CE9879216DA11200847D6E /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE9878216DA11200847D6E /* Weather.swift */; };
+		79CE987C216DA18000847D6E /* Helpers.swift in Sources */ = {isa = PBXBuildFile; fileRef = 79CE987B216DA18000847D6E /* Helpers.swift */; };
 		CA64900EFE1D9F43973A260F /* Pods_Wundercast.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4098AFCCA291187AB4A1327B /* Pods_Wundercast.framework */; };
 		CB4D69411DE9A7D100DC0488 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D69401DE9A7D100DC0488 /* AppDelegate.swift */; };
 		CB4D69431DE9A7D100DC0488 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CB4D69421DE9A7D100DC0488 /* ViewController.swift */; };
@@ -23,6 +25,8 @@
 
 /* Begin PBXFileReference section */
 		4098AFCCA291187AB4A1327B /* Pods_Wundercast.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Wundercast.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		79CE9878216DA11200847D6E /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		79CE987B216DA18000847D6E /* Helpers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helpers.swift; sourceTree = "<group>"; };
 		8CF08882048DB0620980ACC9 /* Pods-Wundercast.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wundercast.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Wundercast/Pods-Wundercast.debug.xcconfig"; sourceTree = "<group>"; };
 		A8FEC475BD4840CDBFA8E9B0 /* Pods-Wundercast.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Wundercast.release.xcconfig"; path = "Pods/Target Support Files/Pods-Wundercast/Pods-Wundercast.release.xcconfig"; sourceTree = "<group>"; };
 		CB4D693D1DE9A7D100DC0488 /* Wundercast.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Wundercast.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -69,6 +73,14 @@
 			name = Pods;
 			sourceTree = "<group>";
 		};
+		79CE987A216DA11A00847D6E /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				79CE9878216DA11200847D6E /* Weather.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		CB4D69341DE9A7D100DC0488 = {
 			isa = PBXGroup;
 			children = (
@@ -91,6 +103,8 @@
 		CB4D693F1DE9A7D100DC0488 /* Wundercast */ = {
 			isa = PBXGroup;
 			children = (
+				79CE987B216DA18000847D6E /* Helpers.swift */,
+				79CE987A216DA11A00847D6E /* Models */,
 				CB4D69671DE9AD5100DC0488 /* Assets */,
 				CB4D69631DE9AD2A00DC0488 /* Controllers */,
 				CB4D69641DE9AD2A00DC0488 /* Utils */,
@@ -210,12 +224,14 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Wundercast/Pods-Wundercast-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/NSObject+Rx/NSObject_Rx.framework",
 				"${BUILT_PRODUCTS_DIR}/RxCocoa/RxCocoa.framework",
 				"${BUILT_PRODUCTS_DIR}/RxSwift/RxSwift.framework",
 				"${BUILT_PRODUCTS_DIR}/SwiftyJSON/SwiftyJSON.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/NSObject_Rx.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxCocoa.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/RxSwift.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SwiftyJSON.framework",
@@ -251,9 +267,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				CB4D69431DE9A7D100DC0488 /* ViewController.swift in Sources */,
+				79CE987C216DA18000847D6E /* Helpers.swift in Sources */,
 				CB4D69711DE9C70100DC0488 /* Colors.swift in Sources */,
 				CB4D69411DE9A7D100DC0488 /* AppDelegate.swift in Sources */,
 				CB4D69661DE9AD3300DC0488 /* ApiController.swift in Sources */,
+				79CE9879216DA11200847D6E /* Weather.swift in Sources */,
 				CB4D69701DE9C70100DC0488 /* Appearance.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

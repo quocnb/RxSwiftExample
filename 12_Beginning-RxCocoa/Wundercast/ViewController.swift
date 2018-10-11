@@ -23,51 +23,105 @@
 import UIKit
 import RxSwift
 import RxCocoa
+import NSObject_Rx
 
 class ViewController: UIViewController {
 
-  @IBOutlet weak var searchCityName: UITextField!
-  @IBOutlet weak var tempLabel: UILabel!
-  @IBOutlet weak var humidityLabel: UILabel!
-  @IBOutlet weak var iconLabel: UILabel!
-  @IBOutlet weak var cityNameLabel: UILabel!
+    @IBOutlet weak var searchCityName: UITextField!
+    @IBOutlet weak var tempLabel: UILabel!
+    @IBOutlet weak var humidityLabel: UILabel!
+    @IBOutlet weak var iconLabel: UILabel!
+    @IBOutlet weak var cityNameLabel: UILabel!
 
-  override func viewDidLoad() {
-    super.viewDidLoad()
-    // Do any additional setup after loading the view, typically from a nib.
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        style()
+//        normalProcess()
+//        bindProcess()
+        driveProcess()
+    }
 
-    style()
+    func normalProcess() {
+//        searchCityName.rx.text
+        searchCityName.rx.controlEvent(UIControlEvents.editingDidEndOnExit).map {self.searchCityName.text}
+            .filter {($0 ?? "").count > 0}
+            .flatMap {
+                return ApiController.shared.currentWeather(city: $0 ?? "Error")
+                    .catchErrorJustReturn(Weather.empty)
+            }.observeOn(MainScheduler.instance).subscribe(onNext: { [weak self] data in
+                guard let `self` = self else {
+                    return
+                }
+                self.tempLabel.text = "\(data.temperature)° C"
+                self.iconLabel.text = data.icon
+                self.humidityLabel.text = "\(data.humidity)%"
+                self.cityNameLabel.text = data.cityName
+            }).disposed(by: rx.disposeBag)
+    }
 
-  }
+    func bindProcess() {
+//        let search = searchCityName.rx.text
+        let search = searchCityName.rx.controlEvent(.editingDidEndOnExit).map {self.searchCityName.text}
+            .filter { $0.notEmpty }
+            .flatMapLatest {
+                return ApiController.shared.currentWeather(city: $0 ?? "Error")
+                    .catchErrorJustReturn(Weather.empty)
+            }
+            .share(replay: 1, scope: SubjectLifetimeScope.whileConnected)
+            .observeOn(MainScheduler.instance)
+        search.map {"\($0.temperature)°C"}.bind(to: self.tempLabel.rx.text).disposed(by: rx.disposeBag)
+        search.map {$0.icon}.bind(to: self.iconLabel.rx.text).disposed(by: rx.disposeBag)
+        search.map {$0.cityName}.bind(to: self.cityNameLabel.rx.text).disposed(by: rx.disposeBag)
+        search.map {"\($0.humidity)%"}.bind(to: self.humidityLabel.rx.text).disposed(by: rx.disposeBag)
+    }
 
-  override func viewDidAppear(_ animated: Bool) {
-    super.viewDidAppear(animated)
-  }
+    func driveProcess() {
+        let search = searchCityName.rx.controlEvent(.editingDidEndOnExit).asObservable().map {self.searchCityName.text}
+            .filter { $0.notEmpty }
+            .flatMapLatest {
+                return ApiController.shared.currentWeather(city: $0 ?? "Error").catchErrorJustReturn(Weather.empty)
+            }.asDriver(onErrorJustReturn: Weather.empty)
+        search.map {"\($0.temperature)°C"}.drive(self.tempLabel.rx.text).disposed(by: rx.disposeBag)
+        search.map {$0.icon}.drive(self.iconLabel.rx.text).disposed(by: rx.disposeBag)
+        search.map {$0.cityName}.drive(self.cityNameLabel.rx.text).disposed(by: rx.disposeBag)
+        search.map {"\($0.humidity)%"}.drive(self.humidityLabel.rx.text).disposed(by: rx.disposeBag)
+    }
 
-  override func viewDidLayoutSubviews() {
-    super.viewDidLayoutSubviews()
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+    }
 
-    Appearance.applyBottomLine(to: searchCityName)
-  }
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        Appearance.applyBottomLine(to: searchCityName)
+    }
 
-  override var preferredStatusBarStyle: UIStatusBarStyle {
-    return .lightContent
-  }
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
+    }
 
-  override func didReceiveMemoryWarning() {
-    super.didReceiveMemoryWarning()
-    // Dispose of any resources that can be recreated.
-  }
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+    }
 
-  // MARK: - Style
+    // MARK: - Style
 
-  private func style() {
-    view.backgroundColor = UIColor.aztec
-    searchCityName.textColor = UIColor.ufoGreen
-    tempLabel.textColor = UIColor.cream
-    humidityLabel.textColor = UIColor.cream
-    iconLabel.textColor = UIColor.cream
-    cityNameLabel.textColor = UIColor.cream
-  }
+    private func style() {
+        view.backgroundColor = UIColor.aztec
+        searchCityName.textColor = UIColor.ufoGreen
+        tempLabel.textColor = UIColor.cream
+        humidityLabel.textColor = UIColor.cream
+        iconLabel.textColor = UIColor.cream
+        cityNameLabel.textColor = UIColor.cream
+    }
+
+    private func updateViews(with weather: Weather) {
+        DispatchQueue.main.async {
+            self.tempLabel.text = "\(weather.temperature)° C"
+            self.iconLabel.text = weather.icon
+            self.humidityLabel.text = "\(weather.humidity)%"
+            self.cityNameLabel.text = weather.cityName
+        }
+    }
 }
-
