@@ -33,7 +33,7 @@ https://github.com/ReactiveX/RxSwift
 **Section III: iOS Apps with RxCocoa**
 
 - [x] Chapter 12: Beginning RxCocoa
-- [ ] Chapter 13: Intermediate RxCocoa
+- [x] Chapter 13: Intermediate RxCocoa
 
 **Section IV: Intermediate RxSwift/ RxCocoa**
 - [ ] Chapter 14: Error Handling in Practice
