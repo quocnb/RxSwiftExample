@@ -16,6 +16,7 @@ env:
   - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=08_Transforming-Operators-in-Practice/ WORKSPACE=GitFeed.xcworkspace SCHEME=GitFeed
   - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=10_Combining-Operators-in-Practice/ WORKSPACE=OurPlanet.xcworkspace SCHEME=OurPlanet
   - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=12_Beginning-RxCocoa/ WORKSPACE=Wundercast.xcworkspace SCHEME=Wundercast
+  - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=13_Intermediate-RxCocoa/ WORKSPACE=Wundercast.xcworkspace SCHEME=Wundercast
 
 script:
   - pod update --project-directory="$FOLDER"

@@ -73,13 +73,22 @@ class ApiController {
     }
   }
 
+    func currentWeatherAround(lat: Double, lon: Double) -> Observable<[Weather]> {
+        var weathers = [Observable<Weather>]()
+        for i in -1...1 {
+            for j in -1...1 {
+                weathers.append(currentWeather(lat: lat + Double(i), lon: lon + Double(j)))
+            }
+        }
+        return Observable.from(weathers).merge().toArray()
+    }
+
   //MARK: - Private Methods
 
   /**
    * Private method to build a request with RxCocoa
    */
   private func buildRequest(method: String = "GET", pathComponent: String, params: [(String, String)]) -> Observable<JSON> {
-
     let url = baseURL.appendingPathComponent(pathComponent)
     var request = URLRequest(url: url)
     let keyQueryItem = URLQueryItem(name: "appid", value: apiKey)

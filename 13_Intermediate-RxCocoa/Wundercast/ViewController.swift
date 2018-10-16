@@ -141,6 +141,28 @@ class ViewController: UIViewController {
             .disposed(by: rx.disposeBag)
         running.drive(humidityLabel.rx.isHidden)
             .disposed(by: rx.disposeBag)
+
+        let mapLocationMoving = Observable.from([
+            geoSearch,
+            textSearch
+            ])
+            .merge()
+            .asDriver(onErrorJustReturn: ApiController.Weather.dummy)
+        mapLocationMoving.map {$0.coordinate}
+            .drive(mapView.rx.centerCoordinate)
+            .disposed(by: rx.disposeBag)
+
+        let mapAround = mapInput.flatMap { (coor) in
+            return ApiController.shared.currentWeatherAround(lat: coor.latitude, lon: coor.longitude)
+                .catchErrorJustReturn([])
+        }.asDriver(onErrorJustReturn: [])
+        mapAround.map { (weathers) in
+            return weathers.map({ (weather) in
+                return weather.overlay()
+            })
+        }
+            .drive(mapView.rx.overlays)
+            .disposed(by: rx.disposeBag)
     }
 
     override func viewDidAppear(_ animated: Bool) {

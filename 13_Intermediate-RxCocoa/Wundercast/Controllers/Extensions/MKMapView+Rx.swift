@@ -70,4 +70,10 @@ extension Reactive where Base == MKMapView {
             }
         return ControlEvent(events: source)
     }
+
+    var centerCoordinate: Binder<CLLocationCoordinate2D> {
+        return Binder(self.base, binding: { (mapViews, center) in
+            mapViews.centerCoordinate = center
+        })
+    }
 }
