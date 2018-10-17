@@ -1,4 +1,4 @@
-# RxSwift
+# RxSwift   [![Build Status](https://travis-ci.com/quocnb/RxSwiftExample.svg?branch=master)](https://travis-ci.com/quocnb/RxSwiftExample)
 
 ### Book's information
 [**Rx Swift** Reactive Programming with Swift, 2nd Edition](https://store.raywenderlich.com/products/rxswift)
@@ -22,18 +22,18 @@ https://github.com/ReactiveX/RxSwift
 
 **Section II: Operators and Best Practices**
 
-- [ ] Chapter 5: Filtering Operators
-- [ ] Chapter 6: Filtering Operators in Practice
-- [ ] Chapter 7: Transforming Operators
-- [ ] Chapter 8: Transforming Operators in Practice
-- [ ] Chapter 9: Combining Operators
-- [ ] Chapter 10: Combining Operators in Practice
-- [ ] Chapter 11: Time Based Operators
+- [x] Chapter 5: Filtering Operators
+- [x] Chapter 6: Filtering Operators in Practice
+- [x] Chapter 7: Transforming Operators
+- [x] Chapter 8: Transforming Operators in Practice
+- [x] Chapter 9: Combining Operators
+- [x] Chapter 10: Combining Operators in Practice
+- [x] Chapter 11: Time Based Operators
 
 **Section III: iOS Apps with RxCocoa**
 
-- [ ] Chapter 12: Beginning RxCocoa
-- [ ] Chapter 13: Intermediate RxCocoa
+- [x] Chapter 12: Beginning RxCocoa
+- [x] Chapter 13: Intermediate RxCocoa
 
 **Section IV: Intermediate RxSwift/ RxCocoa**
 - [ ] Chapter 14: Error Handling in Practice

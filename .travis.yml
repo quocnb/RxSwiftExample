@@ -11,8 +11,14 @@ language: swift
 # - pod install --project-directory=Example
 
 env:
-  - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' WORKSPACE=04_Observables-and-Subjects-in-Practice/Combinestagram.xcworkspace SCHEME=Combinestagram PODFILE=04_Observables-and-Subjects-in-Practice/Podfile
+  - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=04_Observables-and-Subjects-in-Practice/ WORKSPACE=Combinestagram.xcworkspace SCHEME=Combinestagram
+  - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=06_Filtering-Operators-In-Practice/ WORKSPACE=Combinestagram.xcworkspace SCHEME=Combinestagram
+  - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=08_Transforming-Operators-in-Practice/ WORKSPACE=GitFeed.xcworkspace SCHEME=GitFeed
+  - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=10_Combining-Operators-in-Practice/ WORKSPACE=OurPlanet.xcworkspace SCHEME=OurPlanet
+  - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=12_Beginning-RxCocoa/ WORKSPACE=Wundercast.xcworkspace SCHEME=Wundercast
+  - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=13_Intermediate-RxCocoa/ WORKSPACE=Wundercast.xcworkspace SCHEME=Wundercast
+  - ACTION=build PLATFORM=iOS DESTINATION='platform=iOS Simulator,name=iPhone XS' FOLDER=14_Error-Handling-in-Practice/ WORKSPACE=Wundercast.xcworkspace SCHEME=Wundercast
 
 script:
-  - pod install --project-directory="$PODFILE"
-  - set -o pipefail && xcodebuild -workspace "$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" $ACTION | xcpretty
+  - pod update --project-directory="$FOLDER"
+  - set -o pipefail && xcodebuild -workspace "$FOLDER/$WORKSPACE" -scheme "$SCHEME" -destination "$DESTINATION" $ACTION | xcpretty
