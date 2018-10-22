@@ -37,7 +37,7 @@ https://github.com/ReactiveX/RxSwift
 
 **Section IV: Intermediate RxSwift/ RxCocoa**
 - [x] Chapter 14: Error Handling in Practice
-- [ ] Chapter 15: Intro To Schedulers
+- [~] Chapter 15: Intro To Schedulers
 - [ ] Chapter 16: Testing with RxTest
 - [ ] Chapter 17: Creating Custom Reactive Extensions
 
